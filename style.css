@@ -1,6 +1,6 @@
 :root {
    --bg-overlay: rgba(13, 15, 14, 0.62);
-   --screen-bg: #23281a89;
+   --screen-bg: #27292646;
    --screen-border: rgba(150, 165, 136, 0.08);
 
    --panel-soft: rgba(31, 35, 28, 0.56);
@@ -29,13 +29,18 @@
    box-sizing: border-box;
 }
 
+html,
+body {
+   height: 100%;
+}
+
 body {
    font-family: "Roboto", Arial, sans-serif;
    font-size: 19px;
    line-height: 1.45;
    background: url("img/fondo.jpg") center center / cover no-repeat fixed;
    margin: 0;
-   padding: 34px;
+   padding: 20px;
    color: var(--text-main);
 }
 
@@ -50,13 +55,18 @@ body::before {
 .contenedor {
    max-width: 1320px;
    margin: 0 auto;
+   min-height: calc(100dvh - 40px);
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
 .pantalla {
    display: none;
+   width: 100%;
    background: var(--screen-bg);
    border: 1px solid var(--screen-border);
-   padding: 22px 34px;
+   padding: 18px 28px;
    border-radius: 20px;
    box-shadow: var(--shadow-deep);
    backdrop-filter: blur(4px);
@@ -108,6 +118,33 @@ h3 {
    color: var(--accent-gold-muted);
 }
 
+/* Pantalla de inicio centrada verticalmente */
+#pantalla-inicio {
+   min-height: calc(100dvh - 40px);
+   display: none;
+   align-items: center;
+   justify-content: center;
+}
+
+#pantalla-inicio.activa {
+   display: flex;
+}
+
+.inicio-contenido {
+   width: 100%;
+   max-width: 900px;
+   margin: 0 auto;
+}
+
+/* Pantalla instrucciones más angosta y con más padding lateral */
+#pantalla-instrucciones {
+   width: 70%;
+   max-width: 920px;
+   margin: 0 auto;
+   padding-left: 56px;
+   padding-right: 56px;
+}
+
 #pantalla-instrucciones .tarjeta+.tarjeta {
    margin-top: 22px;
 }
@@ -130,8 +167,8 @@ h3 {
 .estado-grid {
    display: grid;
    grid-template-columns: repeat(3, 1fr);
-   gap: 14px;
-   margin-bottom: 16px;
+   gap: 12px;
+   margin-bottom: 14px;
    align-items: center;
 }
 
@@ -172,17 +209,17 @@ h3 {
 .corrales-grid {
    display: grid;
    grid-template-columns: repeat(3, 1fr);
-   gap: 14px;
-   margin-bottom: 18px;
+   gap: 12px;
+   margin-bottom: 14px;
 }
 
 .corral-box {
    background: linear-gradient(180deg, rgba(35, 40, 31, 0.9), rgba(22, 26, 21, 0.9));
    border: 1px solid rgba(160, 173, 145, 0.08);
    border-radius: 14px;
-   padding: 12px 14px;
+   padding: 10px 12px;
    text-align: center;
-   min-height: 108px;
+   min-height: 96px;
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -201,17 +238,29 @@ h3 {
    box-shadow: inset 0 0 0 2px rgba(127, 145, 104, 0.24);
 }
 
+
+#pantalla-juego {
+   min-height: calc(100dvh - 40px);
+   padding-top: 14px;
+   padding-bottom: 14px;
+   overflow: hidden;
+}
+
 .pantalla-juego-layout {
    display: flex;
    flex-direction: row;
    gap: 18px;
    align-items: stretch;
+   min-height: calc(100dvh - 68px);
 }
 
 .panel-partida {
    width: 100%;
    position: relative;
-   padding-top: 6px;
+   padding-top: 4px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
 }
 
 .panel-jugador {
@@ -228,7 +277,9 @@ h3 {
 
 .imagen-personaje {
    width: 100%;
-   max-width: 430px;
+   max-width: 400px;
+   max-height: calc(100dvh - 120px);
+   object-fit: contain;
    border-radius: 18px;
    display: block;
    filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.38));
@@ -262,12 +313,12 @@ h3 {
 .animal-card {
    display: grid;
    grid-template-columns: 0.95fr 2.05fr;
-   gap: 18px;
+   gap: 16px;
    align-items: center;
    border: 1px solid rgba(160, 173, 145, 0.08);
    border-radius: 16px;
-   padding: 16px 18px;
-   margin-bottom: 16px;
+   padding: 14px 16px;
+   margin-bottom: 12px;
    background: linear-gradient(180deg, rgba(35, 40, 31, 0.88), rgba(22, 25, 20, 0.88));
 }
 
@@ -281,14 +332,14 @@ h3 {
 
 .animal-info h2 {
    text-align: right;
-   font-size: 46px;
+   font-size: 42px;
    margin-bottom: 8px;
    color: var(--text-main);
 }
 
 .animal-info p {
-   font-size: 18px;
-   margin: 5px 0;
+   font-size: 17px;
+   margin: 4px 0;
    color: #f3f4ef;
 }
 
@@ -300,8 +351,8 @@ h3 {
 
 .animal-imagen {
    width: 100%;
-   max-width: 620px;
-   max-height: 330px;
+   max-width: 580px;
+   max-height: 280px;
    object-fit: cover;
    border-radius: 16px;
    border: 1px solid rgba(196, 176, 114, 0.12);
@@ -313,21 +364,21 @@ h3 {
    display: flex;
    flex-wrap: wrap;
    justify-content: center;
-   gap: 12px;
-   margin-bottom: 14px;
+   gap: 10px;
+   margin-bottom: 10px;
 }
 
 .acciones-grid button {
-   min-width: 190px;
+   min-width: 180px;
 }
 
 button {
    font-family: "Roboto", Arial, sans-serif;
-   padding: 12px 16px;
+   padding: 11px 15px;
    font-size: 15px;
    font-weight: 800;
    border: none;
-   border-radius: 12px;
+   border-radius: 21px;
    cursor: pointer;
    color: #f7f7f2;
    background: linear-gradient(180deg, #394032, #252b22);
@@ -359,11 +410,11 @@ button.secundario {
 }
 
 #mensaje {
-   margin-top: 10px;
+   margin-top: 8px;
    font-weight: 700;
-   font-size: 17px;
+   font-size: 16px;
    text-align: center;
-   padding: 12px 14px;
+   padding: 16px 12px;
    border-radius: 12px;
    background: rgba(17, 20, 17, 0.52);
    border: 1px solid rgba(160, 173, 145, 0.06);
@@ -400,7 +451,12 @@ li {
    margin-bottom: 7px;
 }
 
-/* NUEVO: resumen matemático en bloques */
+#pantalla-final {
+   width: 100%;
+   max-width: 1080px;
+   margin: 0 auto;
+}
+
 #resumen-matematico {
    max-width: 980px;
    margin: 28px auto 20px;
@@ -439,7 +495,7 @@ li {
 
 .cardinalidades-grid {
    display: grid;
-   grid-template-columns: repeat(5, 1fr);
+   grid-template-columns: repeat(6, 1fr);
    gap: 14px;
    margin-top: 12px;
 }
@@ -488,15 +544,26 @@ li {
 
 @media (max-width: 900px) {
    body {
-      padding: 18px;
+      padding: 14px;
+   }
+
+   .contenedor {
+      min-height: calc(100dvh - 28px);
    }
 
    .pantalla {
       padding: 18px 18px;
    }
 
+   #pantalla-instrucciones {
+      width: 100%;
+      padding-left: 24px;
+      padding-right: 24px;
+   }
+
    .pantalla-juego-layout {
       flex-direction: column;
+      min-height: auto;
    }
 
    .panel-jugador {
@@ -522,6 +589,7 @@ li {
 
    .imagen-personaje {
       max-width: 320px;
+      max-height: none;
    }
 
    .btn-terminar {

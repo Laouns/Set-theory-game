@@ -389,6 +389,8 @@ function mostrarResumenFinal(gameOver) {
 
   document.getElementById("puntaje-final").textContent = puntaje;
 
+  const totalCapturados = corralA.length + corralB.length + corralC.length;
+
   document.getElementById("resumen-matematico").innerHTML = `
     <div class="resumen-grid">
       ${crearResumenCard("Universo U", nombresLista(universo), "full")}
@@ -419,6 +421,10 @@ function mostrarResumenFinal(gameOver) {
           <div class="cardinalidad-item">
             <span class="cardinalidad-label">|L|</span>
             <span class="cardinalidad-value">${libres.length}</span>
+          </div>
+          <div class="cardinalidad-item">
+            <span class="cardinalidad-label">|A ∪ B ∪ C|</span>
+            <span class="cardinalidad-value">${totalCapturados}</span>
           </div>
         </div>
       </div>
