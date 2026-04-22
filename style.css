@@ -1,0 +1,544 @@
+:root {
+   --bg-overlay: rgba(13, 15, 14, 0.62);
+   --screen-bg: #23281a89;
+   --screen-border: rgba(150, 165, 136, 0.08);
+
+   --panel-soft: rgba(31, 35, 28, 0.56);
+   --panel-mid: rgba(36, 41, 31, 0.74);
+   --panel-dark: rgba(18, 21, 18, 0.62);
+
+   --text-main: #f3f1ea;
+   --text-soft: #cfd3c8;
+   --text-accent: #dfe7c6;
+
+   --accent-olive: #7f9168;
+   --accent-steel: #8d9499;
+   --accent-red: #b64040;
+   --accent-red-dark: #7e2323;
+   --accent-gold-muted: #c4b072;
+
+   --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.24);
+   --shadow-deep: 0 14px 30px rgba(0, 0, 0, 0.32);
+
+   --radius-lg: 18px;
+   --radius-md: 14px;
+   --radius-sm: 10px;
+}
+
+* {
+   box-sizing: border-box;
+}
+
+body {
+   font-family: "Roboto", Arial, sans-serif;
+   font-size: 19px;
+   line-height: 1.45;
+   background: url("img/fondo.jpg") center center / cover no-repeat fixed;
+   margin: 0;
+   padding: 34px;
+   color: var(--text-main);
+}
+
+body::before {
+   content: "";
+   position: fixed;
+   inset: 0;
+   background: var(--bg-overlay);
+   z-index: -1;
+}
+
+.contenedor {
+   max-width: 1320px;
+   margin: 0 auto;
+}
+
+.pantalla {
+   display: none;
+   background: var(--screen-bg);
+   border: 1px solid var(--screen-border);
+   padding: 22px 34px;
+   border-radius: 20px;
+   box-shadow: var(--shadow-deep);
+   backdrop-filter: blur(4px);
+}
+
+.pantalla.activa {
+   display: block;
+}
+
+h1,
+h2,
+.game-over {
+   font-family: "Jersey 10", cursive;
+   letter-spacing: 1px;
+}
+
+h1 {
+   font-size: 72px;
+   line-height: 0.95;
+   margin: 0 0 10px;
+   color: var(--accent-gold-muted);
+   text-shadow: 0 3px 10px rgba(0, 0, 0, 0.28);
+}
+
+h2 {
+   font-size: 54px;
+   line-height: 0.95;
+   margin: 0 0 12px;
+   color: var(--text-main);
+   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+h3 {
+   font-family: "Roboto", Arial, sans-serif;
+   font-size: 21px;
+   font-weight: 700;
+   margin: 0 0 6px;
+   color: var(--text-main);
+}
+
+#pantalla-inicio h1,
+#pantalla-juego h2,
+#pantalla-final h2 {
+   text-align: center;
+}
+
+#pantalla-instrucciones h2 {
+   text-align: center;
+   color: var(--accent-gold-muted);
+}
+
+#pantalla-instrucciones .tarjeta+.tarjeta {
+   margin-top: 22px;
+}
+
+.subtexto {
+   text-align: center;
+   color: var(--text-soft);
+   margin: 0 0 16px;
+}
+
+.tarjeta {
+   background: rgba(25, 29, 23, 0.54);
+   border: 1px solid rgba(125, 138, 116, 0.1);
+   border-radius: 16px;
+   padding: 18px 20px;
+   margin-bottom: 16px;
+   color: var(--text-main);
+}
+
+.estado-grid {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 14px;
+   margin-bottom: 16px;
+   align-items: center;
+}
+
+.estado-grid-final {
+   grid-template-columns: repeat(2, 1fr);
+   max-width: 760px;
+   margin: 0 auto 18px;
+}
+
+.estado-box {
+   background: rgba(255, 255, 255, 0.02);
+   border: none;
+   border-radius: 12px;
+   padding: 8px 10px;
+   text-align: center;
+   min-height: 68px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+
+.estado-label {
+   display: block;
+   font-size: 13px;
+   font-weight: 600;
+   color: var(--text-soft);
+   margin-bottom: 4px;
+   text-transform: uppercase;
+   letter-spacing: 0.05em;
+}
+
+.estado-valor {
+   font-size: 22px;
+   font-weight: 800;
+   color: var(--text-main);
+}
+
+.corrales-grid {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 14px;
+   margin-bottom: 18px;
+}
+
+.corral-box {
+   background: linear-gradient(180deg, rgba(35, 40, 31, 0.9), rgba(22, 26, 21, 0.9));
+   border: 1px solid rgba(160, 173, 145, 0.08);
+   border-radius: 14px;
+   padding: 12px 14px;
+   text-align: center;
+   min-height: 108px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   box-shadow: inset 0 0 0 2px rgba(127, 145, 104, 0.24);
+}
+
+.corral-box p {
+   margin: 4px 0 0;
+   color: var(--text-accent);
+   font-weight: 700;
+}
+
+.corral-a,
+.corral-b,
+.corral-c {
+   box-shadow: inset 0 0 0 2px rgba(127, 145, 104, 0.24);
+}
+
+.pantalla-juego-layout {
+   display: flex;
+   flex-direction: row;
+   gap: 18px;
+   align-items: stretch;
+}
+
+.panel-partida {
+   width: 100%;
+   position: relative;
+   padding-top: 6px;
+}
+
+.panel-jugador {
+   width: 30%;
+   padding: 0;
+   margin: 0;
+   border: none;
+   background: transparent;
+   box-shadow: none;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.imagen-personaje {
+   width: 100%;
+   max-width: 430px;
+   border-radius: 18px;
+   display: block;
+   filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.38));
+}
+
+.btn-terminar {
+   position: absolute;
+   top: 0;
+   right: 0;
+   width: 42px;
+   height: 42px;
+   min-width: 42px;
+   padding: 0;
+   border-radius: 50%;
+   border: 1px solid rgba(255, 255, 255, 0.12);
+   background: linear-gradient(180deg, var(--accent-red), var(--accent-red-dark));
+   color: #fff;
+   font-size: 26px;
+   font-weight: 900;
+   line-height: 1;
+   display: grid;
+   place-items: center;
+   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.28);
+}
+
+.btn-terminar:hover {
+   transform: scale(1.04);
+   filter: brightness(1.08);
+}
+
+.animal-card {
+   display: grid;
+   grid-template-columns: 0.95fr 2.05fr;
+   gap: 18px;
+   align-items: center;
+   border: 1px solid rgba(160, 173, 145, 0.08);
+   border-radius: 16px;
+   padding: 16px 18px;
+   margin-bottom: 16px;
+   background: linear-gradient(180deg, rgba(35, 40, 31, 0.88), rgba(22, 25, 20, 0.88));
+}
+
+.animal-info {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: flex-end;
+   text-align: right;
+}
+
+.animal-info h2 {
+   text-align: right;
+   font-size: 46px;
+   margin-bottom: 8px;
+   color: var(--text-main);
+}
+
+.animal-info p {
+   font-size: 18px;
+   margin: 5px 0;
+   color: #f3f4ef;
+}
+
+.animal-imagen-contenedor {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.animal-imagen {
+   width: 100%;
+   max-width: 620px;
+   max-height: 330px;
+   object-fit: cover;
+   border-radius: 16px;
+   border: 1px solid rgba(196, 176, 114, 0.12);
+   background: rgba(255, 255, 255, 0.03);
+   box-shadow: var(--shadow-soft);
+}
+
+.acciones-grid {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   gap: 12px;
+   margin-bottom: 14px;
+}
+
+.acciones-grid button {
+   min-width: 190px;
+}
+
+button {
+   font-family: "Roboto", Arial, sans-serif;
+   padding: 12px 16px;
+   font-size: 15px;
+   font-weight: 800;
+   border: none;
+   border-radius: 12px;
+   cursor: pointer;
+   color: #f7f7f2;
+   background: linear-gradient(180deg, #394032, #252b22);
+   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+   transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover {
+   transform: translateY(-1px);
+   filter: brightness(1.08);
+   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.26);
+}
+
+button.secundario {
+   background: linear-gradient(180deg, #4a5044, #2c3129);
+   color: #edf1e7;
+}
+
+#btn-corral-a {
+   background: linear-gradient(180deg, #58644a, #373f30);
+}
+
+#btn-corral-b {
+   background: linear-gradient(180deg, #5b6064, #353a3e);
+}
+
+#btn-corral-c {
+   background: linear-gradient(180deg, #6b4b4b, #432a2a);
+}
+
+#mensaje {
+   margin-top: 10px;
+   font-weight: 700;
+   font-size: 17px;
+   text-align: center;
+   padding: 12px 14px;
+   border-radius: 12px;
+   background: rgba(17, 20, 17, 0.52);
+   border: 1px solid rgba(160, 173, 145, 0.06);
+   color: var(--text-main);
+}
+
+.game-over {
+   text-align: center;
+   color: #ff7f7f;
+   font-size: 72px;
+   line-height: 0.95;
+   margin: 10px 0 18px;
+   text-shadow: 0 0 14px rgba(182, 64, 64, 0.34);
+}
+
+.oculto {
+   display: none;
+}
+
+.acciones-centro {
+   display: flex;
+   gap: 12px;
+   flex-wrap: wrap;
+   justify-content: center;
+   margin-top: 12px;
+}
+
+ul {
+   margin: 0;
+   padding-left: 22px;
+}
+
+li {
+   margin-bottom: 7px;
+}
+
+/* NUEVO: resumen matemático en bloques */
+#resumen-matematico {
+   max-width: 980px;
+   margin: 28px auto 20px;
+   padding: 26px 30px;
+}
+
+.resumen-grid {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 16px;
+}
+
+.resumen-card {
+   background: rgba(17, 20, 17, 0.42);
+   border: 1px solid rgba(160, 173, 145, 0.08);
+   border-radius: 14px;
+   padding: 16px 18px;
+}
+
+.resumen-card h3 {
+   margin: 0 0 10px;
+   color: var(--accent-gold-muted);
+   font-size: 20px;
+}
+
+.resumen-card p {
+   margin: 0;
+   color: var(--text-main);
+   line-height: 1.55;
+   word-break: break-word;
+}
+
+.resumen-card.full {
+   grid-column: 1 / -1;
+}
+
+.cardinalidades-grid {
+   display: grid;
+   grid-template-columns: repeat(5, 1fr);
+   gap: 14px;
+   margin-top: 12px;
+}
+
+.cardinalidad-item {
+   background: rgba(255, 255, 255, 0.03);
+   border: 1px solid rgba(160, 173, 145, 0.08);
+   border-radius: 12px;
+   padding: 14px 10px;
+   text-align: center;
+}
+
+.cardinalidad-label {
+   display: block;
+   font-size: 18px;
+   font-weight: 700;
+   color: var(--accent-gold-muted);
+   margin-bottom: 6px;
+}
+
+.cardinalidad-value {
+   display: block;
+   font-size: 28px;
+   font-weight: 900;
+   color: var(--text-main);
+}
+
+@media (max-width: 1100px) {
+   .animal-card {
+      grid-template-columns: 1fr;
+   }
+
+   .animal-info {
+      align-items: center;
+      text-align: center;
+   }
+
+   .animal-info h2 {
+      text-align: center;
+   }
+
+   .animal-imagen {
+      max-width: 100%;
+   }
+}
+
+@media (max-width: 900px) {
+   body {
+      padding: 18px;
+   }
+
+   .pantalla {
+      padding: 18px 18px;
+   }
+
+   .pantalla-juego-layout {
+      flex-direction: column;
+   }
+
+   .panel-jugador {
+      width: 100%;
+   }
+
+   .corrales-grid,
+   .estado-grid,
+   .estado-grid-final,
+   .resumen-grid {
+      grid-template-columns: 1fr;
+   }
+
+   .acciones-grid {
+      flex-direction: column;
+      align-items: center;
+   }
+
+   .acciones-grid button {
+      width: 100%;
+      max-width: 340px;
+   }
+
+   .imagen-personaje {
+      max-width: 320px;
+   }
+
+   .btn-terminar {
+      top: -4px;
+      right: -4px;
+   }
+
+   #resumen-matematico {
+      max-width: 100%;
+      padding: 20px 18px;
+   }
+
+   .resumen-card.full {
+      grid-column: auto;
+   }
+
+   .cardinalidades-grid {
+      grid-template-columns: 1fr 1fr;
+   }
+}

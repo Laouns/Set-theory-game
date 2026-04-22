@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Escape Animal: Clasifica o Muere</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="contenedor">
+      <section id="pantalla-inicio" class="pantalla activa">
+        <h1>Escape Animal: Clasifica o Muere</h1>
+        <p class="subtexto">
+          Clasifica animales en corrales definidos por propiedades aleatorias.
+        </p>
+
+        <div class="tarjeta">
+          <p>
+            En un mundo postapocalíptico, los animales escaparon del zoológico y
+            de las granjas. Tu refugio solo tiene tres corrales. Cada partida
+            genera 12 encuentros aleatorios y 3 propiedades aleatorias para los
+            corrales.
+          </p>
+        </div>
+
+        <div class="acciones-centro">
+          <button id="btn-iniciar">Iniciar juego</button>
+          <button id="btn-instrucciones" class="secundario">
+            Ver instrucciones
+          </button>
+        </div>
+      </section>
+
+      <section id="pantalla-instrucciones" class="pantalla">
+        <h2>Instrucciones</h2>
+
+        <div class="tarjeta">
+          <ul>
+            <li>Tienes <strong>5 vidas</strong>.</li>
+            <li>
+              El sistema asigna <strong>3 propiedades aleatorias</strong> a los
+              corrales.
+            </li>
+            <li>
+              Cada encuentro presenta un animal con
+              <strong>dieta, origen y movimiento</strong>.
+            </li>
+            <li>Puedes enviarlo a un corral o dejarlo libre.</li>
+            <li>
+              Si el animal no pertenece al corral elegido,
+              <strong>te ataca, escapa y pierdes 1 vida</strong>.
+            </li>
+            <li>
+              La partida termina cuando pierdes todas las vidas o cuando
+              completas los 12 encuentros.
+            </li>
+          </ul>
+        </div>
+
+        <div class="tarjeta">
+          <h3>Sistema de puntaje</h3>
+          <ul>
+            <li>Animal útil bien clasificado: <strong>+2</strong></li>
+            <li>Animal neutro bien clasificado: <strong>+1</strong></li>
+            <li>Animal peligroso bien clasificado: <strong>+3</strong></li>
+            <li>Dejar libre: <strong>0</strong></li>
+            <li>Error con animal útil o neutro: <strong>-1</strong></li>
+            <li>Error con animal peligroso: <strong>-2</strong></li>
+          </ul>
+        </div>
+
+        <div class="acciones-centro">
+          <button id="btn-volver" class="secundario">Volver</button>
+        </div>
+      </section>
+
+      <section id="pantalla-juego" class="pantalla">
+        <div class="pantalla-juego-layout">
+          <aside class="panel-jugador">
+            <img
+              src="img/personaje.jpg"
+              alt="Personaje"
+              class="imagen-personaje"
+            />
+          </aside>
+
+          <section class="panel-partida">
+            <button
+              id="btn-terminar"
+              class="btn-terminar"
+              title="Terminar partida"
+              aria-label="Terminar partida"
+            >
+              ×
+            </button>
+
+            <h2>Partida en curso</h2>
+
+            <div class="estado-grid">
+              <div class="estado-box">
+                <span class="estado-label">Vidas</span>
+                <span id="vidas" class="estado-valor">5</span>
+              </div>
+              <div class="estado-box">
+                <span class="estado-label">Puntaje</span>
+                <span id="puntaje" class="estado-valor">0</span>
+              </div>
+              <div class="estado-box">
+                <span class="estado-label">Progreso</span>
+                <span id="progreso" class="estado-valor"
+                  >Encuentro 1 de 12</span
+                >
+              </div>
+            </div>
+
+            <div class="corrales-grid">
+              <div class="corral-box corral-a">
+                <h3>Corral A</h3>
+                <p id="corral-a-label">---</p>
+              </div>
+              <div class="corral-box corral-b">
+                <h3>Corral B</h3>
+                <p id="corral-b-label">---</p>
+              </div>
+              <div class="corral-box corral-c">
+                <h3>Corral C</h3>
+                <p id="corral-c-label">---</p>
+              </div>
+            </div>
+
+            <div class="animal-card">
+              <div class="animal-info">
+                <h2 id="animal-nombre">Animal</h2>
+                <p id="animal-dieta">Dieta: ---</p>
+                <p id="animal-origen">Origen: ---</p>
+                <p id="animal-movimiento">Movimiento: ---</p>
+                <p id="animal-tipo">Tipo: ---</p>
+              </div>
+
+              <div class="animal-imagen-contenedor">
+                <img
+                  id="animal-imagen"
+                  src=""
+                  alt="Animal actual"
+                  class="animal-imagen"
+                />
+              </div>
+            </div>
+
+            <div class="acciones-grid">
+              <button id="btn-corral-a">Enviar a Corral A</button>
+              <button id="btn-corral-b">Enviar a Corral B</button>
+              <button id="btn-corral-c">Enviar a Corral C</button>
+              <button id="btn-libre" class="secundario">Dejar libre</button>
+            </div>
+
+            <div id="mensaje">Elige una acción.</div>
+          </section>
+        </div>
+      </section>
+
+      <section id="pantalla-final" class="pantalla">
+        <h2>Resumen final</h2>
+        <h1 id="game-over-titulo" class="game-over oculto">GAME OVER</h1>
+
+        <div class="estado-grid estado-grid-final">
+          <div class="estado-box">
+            <span class="estado-label">Clasificación</span>
+            <span id="clasificacion-final" class="estado-valor">---</span>
+          </div>
+          <div class="estado-box">
+            <span class="estado-label">Puntaje final</span>
+            <span id="puntaje-final" class="estado-valor">0</span>
+          </div>
+        </div>
+
+        <div id="resumen-matematico" class="tarjeta"></div>
+
+        <div class="acciones-centro">
+          <button id="btn-reiniciar">Jugar otra vez</button>
+          <button id="btn-inicio-final" class="secundario">
+            Volver al inicio
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
